@@ -1,4 +1,10 @@
 (() => {
+ const EN = document.documentElement.lang === 'en';
+ const T = EN
+  ? {open: 'Open menu', close: 'Close menu', behind: n => `${n} hr behind Eastern`, pick: 'Please choose your time zone.', locale: 'en-US',
+     msgs: {type: 'Please choose an inquiry type.', name: 'Please enter your name.', email: 'Please check your email address (e.g. hanako@example.com).', tz: 'Please choose your time zone.', message: 'Please tell us what you would like to discuss.', agree: 'Please agree to the privacy terms.'}}
+  : {open: 'メニューを開く', close: 'メニューを閉じる', behind: n => `東部より${n}時間遅い`, pick: 'お住まいの地域の時間帯をお選びください。', locale: 'ja-JP',
+     msgs: {type: 'お問い合わせの種類を選択してください。', name: 'お名前を入力してください。', email: 'メールアドレスの形式をご確認ください（例：hanako@example.com）。', tz: 'お住まいの時間帯を選択してください。', message: 'ご相談内容を入力してください。', agree: '個人情報の取り扱いへの同意が必要です。'}};
  // メニュー
  const btn = document.querySelector('.menu-btn');
  const menu = document.getElementById('sp-menu');
@@ -6,12 +12,12 @@
  const setMenu = open => {
   menu.hidden = !open;
   btn.setAttribute('aria-expanded', open);
-  btn.querySelector('.vh').textContent = open ? 'メニューを閉じる' : 'メニューを開く';
+  btn.querySelector('.vh').textContent = open ? T.close : T.open;
   updateSticky();
  };
  btn.addEventListener('click', () => setMenu(menu.hidden));
  addEventListener('keydown', e => { if (e.key === 'Escape' && !menu.hidden) { setMenu(false); btn.focus(); } });
- matchMedia('(min-width:960px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
+ matchMedia('(min-width:1200px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
 
  // 下部の固定ボタン（スマホ）：ファーストビューを過ぎてから表示
  function updateSticky() {
@@ -29,13 +35,13 @@
  };
  const tick = () => {
   const now = new Date();
-  const jp = offsetOf('Asia/Tokyo', now);
+  const et = offsetOf('America/New_York', now);
   clocks.forEach(el => {
    const tz = el.dataset.tz;
-   el.querySelector('b').textContent = new Intl.DateTimeFormat('ja-JP', {timeZone: tz, hour: '2-digit', minute: '2-digit', hour12: false}).format(now);
-   const date = new Intl.DateTimeFormat('ja-JP', {timeZone: tz, month: 'numeric', day: 'numeric', weekday: 'short'}).format(now);
-   const diff = jp - offsetOf(tz, now);
-   el.querySelector('small').textContent = tz === 'Asia/Tokyo' ? date : `${date}・日本より${diff}時間遅い`;
+   el.querySelector('b').textContent = new Intl.DateTimeFormat(T.locale, {timeZone: tz, hour: '2-digit', minute: '2-digit', hour12: false}).format(now);
+   const date = new Intl.DateTimeFormat(T.locale, {timeZone: tz, month: EN ? 'short' : 'numeric', day: 'numeric', weekday: 'short'}).format(now);
+   const diff = et - offsetOf(tz, now);
+   el.querySelector('small').textContent = diff ? `${date}${EN ? ' · ' : '・'}${T.behind(diff)}` : date;
   });
  };
  if (clocks.length) { tick(); setInterval(tick, 30000); }
@@ -47,9 +53,9 @@
   const local = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
   const map = {'America/Los_Angeles': 1, 'America/Vancouver': 1, 'America/Denver': 2, 'America/Phoenix': 2, 'America/Chicago': 3, 'America/New_York': 4, 'America/Detroit': 4, 'America/Anchorage': 5, 'Pacific/Honolulu': 6};
   if (map[local]) tzSel.selectedIndex = map[local];
-  else tzSel.closest('.field').querySelector('.hint').textContent = 'お住まいの地域の時間帯をお選びください。';
+  else tzSel.closest('.field').querySelector('.hint').textContent = T.pick;
 
-  const msgs = {type: 'お問い合わせの種類を選択してください。', name: 'お名前を入力してください。', email: 'メールアドレスの形式をご確認ください（例：hanako@example.com）。', tz: 'お住まいの時間帯を選択してください。', message: 'ご相談内容を入力してください。', agree: '個人情報の取り扱いへの同意が必要です。'};
+  const msgs = T.msgs;
   const showError = (el, text) => {
    const field = el.closest('.field');
    let err = field.querySelector('.err');

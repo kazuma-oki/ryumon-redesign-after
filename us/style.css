@@ -3,7 +3,7 @@
  --paper:#f5efe6; --paper-2:#fbf8f2; --ink:#2b1d1a; --text:#4a3b35; --muted:#6b5a52;
  --wine:#651d26; --wine-dark:#3a1016; --gold:#b8925a; --gold-light:#d4b07c; --night:#1b0b0e; --line:#e2d8c9;
  --mincho:'Shippori Mincho',serif; --gothic:'Zen Kaku Gothic New',sans-serif;
- --gutter:clamp(20px,5vw,56px); --max:1180px; --head:72px;
+ --gutter:clamp(20px,5vw,56px); --max:1320px; --head:76px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:calc(var(--head) + 12px)}
@@ -18,7 +18,7 @@ p,dd,li{word-break:auto-phrase;text-wrap:pretty}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .skip{position:fixed;left:12px;top:-80px;z-index:100;background:#fff;padding:10px 14px}.skip:focus{top:10px}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
-.section{padding:clamp(64px,9vw,120px) 0}
+.section{padding:clamp(64px,9vw,128px) 0}
 .section.alt{background:var(--paper-2);border-block:1px solid var(--line)}
 .label{display:flex;align-items:center;gap:12px;font-family:var(--mincho);font-size:13px;letter-spacing:.16em;color:var(--wine);margin-bottom:18px}
 .label::before{content:"";width:24px;height:1px;background:var(--gold)}
@@ -40,18 +40,18 @@ p,dd,li{word-break:auto-phrase;text-wrap:pretty}
 
 /* ヘッダー */
 .site-header{position:sticky;top:0;z-index:50;background:rgba(245,239,230,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.site-header .wrap{height:var(--head);display:flex;align-items:center;gap:20px}
+.site-header .wrap{height:var(--head);display:flex;align-items:center;gap:24px}
 .logo{display:flex;align-items:center;gap:12px;color:var(--ink);margin-right:auto;flex:none}
 .logo-mark{width:40px;height:40px;border:1px solid var(--wine);color:var(--wine);display:grid;place-items:center;font-family:var(--mincho);font-size:14px;line-height:1.05;text-align:center}
-.logo-text{display:flex;flex-direction:column;line-height:1.3}
-.logo-text small{font-size:11px;letter-spacing:.2em;color:var(--muted)}
-.logo-text b{font-family:var(--mincho);font-weight:500;font-size:20px;letter-spacing:.12em}
+.logo-text{display:flex;flex-direction:column;gap:2px;line-height:1.3}
+.logo-text small{font-size:10px;letter-spacing:.3em;color:var(--muted)}
+.logo-text b{font-family:var(--mincho);font-weight:500;font-size:22px;letter-spacing:.14em}
 .logo-text b span{font-size:12px;letter-spacing:.08em;margin-left:8px;padding:1px 6px;border:1px solid var(--gold);color:var(--wine);vertical-align:3px}
 .gnav{display:flex;align-items:center;gap:26px}
 .gnav a{color:var(--ink);font-size:14px;padding:6px 0;position:relative}
 .gnav a:hover,.gnav a[aria-current=page]{color:var(--wine)}
 .gnav a[aria-current=page]::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:var(--wine)}
-.gnav .btn{min-height:44px;padding:0 20px;color:#fff}
+.gnav .btn{min-height:44px;padding:0 22px;color:#fff;margin-left:0}
 .menu-btn{display:none;width:48px;height:44px;background:var(--wine);border:0;cursor:pointer;position:relative;flex:none}
 .menu-btn span{position:absolute;left:14px;right:14px;height:1.5px;background:#fff;transition:transform .25s,opacity .2s}
 .menu-btn span:nth-child(1){top:14px}.menu-btn span:nth-child(2){top:21px}.menu-btn span:nth-child(3){top:28px}
@@ -70,14 +70,12 @@ p,dd,li{word-break:auto-phrase;text-wrap:pretty}
 .clock span{display:block;font-size:12px;color:#c9b8a0;letter-spacing:.06em}
 .clock b{display:block;font-family:var(--mincho);font-weight:500;font-size:24px;letter-spacing:.06em;margin-top:4px;font-variant-numeric:tabular-nums}
 .clock small{font-size:12px;color:var(--gold-light)}
-.clock.jp{background:rgba(101,29,38,.55)}
+
 
 /* ヒーロー */
 .hero{position:relative;background:var(--night);color:#f3ece0;overflow:hidden}
-.hero-img{position:absolute;inset:0 0 0 auto;width:min(58%,760px)}
-.hero-img img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
-.hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,var(--night) 46%,rgba(27,11,14,.72) 60%,rgba(27,11,14,.12) 86%),linear-gradient(0deg,rgba(27,11,14,.75),transparent 35%)}
-.hero-body{position:relative;z-index:2;padding:clamp(56px,9vh,110px) var(--gutter) 48px;max-width:var(--max);margin:0 auto}
+.hero-mark{position:absolute;right:-2vw;bottom:-10vw;font-family:var(--mincho);font-size:min(46vw,560px);line-height:1;color:rgba(184,146,90,.08);pointer-events:none;user-select:none}
+.hero-body{position:relative;z-index:2;padding:clamp(64px,11vh,128px) var(--gutter) 56px;max-width:var(--max);margin:0 auto}
 .hero-kicker{font-family:var(--mincho);font-size:15px;letter-spacing:.24em;color:var(--gold-light)}
 .hero h1{margin-top:18px;color:#f8f2e8;font-size:clamp(25px,4.2vw,54px);line-height:1.6}
 .hero p{margin-top:22px;max-width:30em;color:#eadfcd}
@@ -86,8 +84,10 @@ p,dd,li{word-break:auto-phrase;text-wrap:pretty}
 
 /* 2カラム */
 .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,88px);align-items:center}
-.split figure img{width:100%;aspect-ratio:4/5;object-fit:cover}
-.split figcaption{font-size:12px;color:#8a7a70;margin-top:8px}
+.facts{border-top:1px solid var(--ink)}
+.facts div{display:grid;grid-template-columns:9em 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.facts dt{font-family:var(--mincho);color:var(--wine)}
+.facts dd{color:var(--ink)}
 
 /* 特徴（米国向けの3つの違い） */
 .points{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:40px}
@@ -177,20 +177,19 @@ p,dd,li{word-break:auto-phrase;text-wrap:pretty}
 /* 下部固定（スマホ） */
 .sticky-cta{display:none}
 
-@media (max-width:959px){
- :root{--head:64px}
+@media (max-width:1199px){
  .gnav{display:none}
  .menu-btn{display:block}
+}
+@media (max-width:759px){:root{--head:64px}}
+@media (max-width:959px){
  .clocks{grid-template-columns:1fr 1fr}
  .clock{padding:14px 16px;border-top:1px solid rgba(184,146,90,.25)}
  .clock:nth-child(odd){border-left:0}
  .clock b{font-size:20px}
  .clock span{font-size:11px;letter-spacing:.02em}
  .clock small{font-size:11px}
- .hero-img{width:100%}
- .hero::before{background:linear-gradient(180deg,rgba(27,11,14,.55) 0%,rgba(27,11,14,.82) 55%,var(--night) 100%)}
  .split{grid-template-columns:1fr}
- .split figure img{aspect-ratio:4/3}
  .points{grid-template-columns:1fr}
  .steps{grid-template-columns:1fr 1fr}
  .foot-grid{grid-template-columns:1fr}
@@ -214,3 +213,39 @@ p,dd,li{word-break:auto-phrase;text-wrap:pretty}
 .table.tz small.city{display:block;font-weight:400;font-size:12px;color:var(--muted);margin-top:2px;white-space:normal}
 .table.tz td{white-space:nowrap}
 @media (max-width:520px){.table.tz th,.table.tz td{padding:12px 6px}.table.tz thead th{white-space:normal;font-size:13px}}
+
+@media (max-width:520px){.facts div{grid-template-columns:1fr;gap:2px}}
+
+/* 時刻帯をコンテンツ幅にそろえる（メインのお悩み帯と同じ） */
+.clocks{padding-inline:calc(max(0px,(100% - var(--max)) / 2) + var(--gutter))}
+.clock:first-child{padding-left:0}
+@media (max-width:959px){.clock:nth-child(odd){padding-left:0}}
+
+/* 言語切替 */
+.lang{flex:none;font-size:13px;color:var(--ink);border:1px solid #d6c9b5;height:44px;padding:0 14px;display:flex;align-items:center;letter-spacing:.04em}
+.lang:hover{border-color:var(--wine);color:var(--wine)}
+.gnav + .lang{margin-left:-8px}
+@media (max-width:1199px){.lang{margin-left:auto}.lang + .menu-btn{margin-left:0}}
+
+/* 英語ページ：和文用の広い字間を詰める */
+html[lang=en] h1,html[lang=en] h2,html[lang=en] h3,html[lang=en] h4{letter-spacing:.01em;line-height:1.35}
+html[lang=en] .hero h1{line-height:1.25}
+html[lang=en] .hero-kicker{letter-spacing:.06em}
+html[lang=en] .label{letter-spacing:.06em}
+html[lang=en] .logo-text small{letter-spacing:.08em}
+html[lang=en] .btn{letter-spacing:.02em}
+html[lang=en] body,html[lang=en] .lead{line-height:1.75}
+
+/* スマホ：言語切替を入れてもヘッダーが収まるように */
+@media (max-width:520px){
+ .site-header .wrap{gap:8px}
+ .logo{gap:8px}
+ .logo-mark{width:36px;height:36px;font-size:13px}
+ .logo-text b{font-size:17px;letter-spacing:.1em}
+ .logo-text b span{font-size:11px;margin-left:5px;padding:0 4px}
+ .lang{height:40px;padding:0 9px;font-size:12px}
+ .menu-btn{width:44px;height:40px}
+ .menu-btn span{left:12px;right:12px}
+ .menu-btn span:nth-child(1){top:12px}.menu-btn span:nth-child(2){top:19px}.menu-btn span:nth-child(3){top:26px}
+}
+@media (max-width:360px){.site-header .logo-mark{display:none}:root{--gutter:16px}}
