@@ -79,4 +79,17 @@
    sent.hidden = false; sent.focus(); sent.scrollIntoView({block: 'center'});
   });
  }
+ // ローディング：初回のみ。フォントが揃ってから閉じる（最短0.9秒）
+ const loader = document.getElementById('rm-loader');
+ if (loader && document.documentElement.classList.contains('show-loader')) {
+  const t0 = performance.now();
+  const close = () => setTimeout(() => { loader.classList.add('is-done'); try { sessionStorage.setItem('rm-seen', '1'); } catch (e) {} setTimeout(() => loader.remove(), 600); }, Math.max(0, 900 - (performance.now() - t0)));
+  Promise.race([document.fonts ? document.fonts.ready : Promise.resolve(), new Promise(r => setTimeout(r, 3000))]).then(close);
+ } else if (loader) loader.remove();
+
+ // セクションのフェード（ファーストビュー以外）
+ if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {rootMargin: '0px 0px -8% 0px'});
+  document.querySelectorAll('main > section:not(:first-child), .to-main, .site-footer').forEach(el => { el.classList.add('rv'); io.observe(el); });
+ }
 })();

@@ -25,7 +25,7 @@ p,dd,li{word-break:auto-phrase;text-wrap:pretty}
 .h2{font-size:clamp(25px,3.2vw,36px)}
 .lead{margin-top:18px;max-width:36em;color:var(--text)}
 .note{font-size:12px;line-height:1.8;color:#8a7a70;margin-top:12px}
-.demo{background:var(--night);color:#d9c3a0;font-size:11px;letter-spacing:.06em;text-align:center;padding:6px 12px;line-height:1.6}
+.demo{background:var(--night);color:#d9c3a0;font-size:11px;letter-spacing:.06em;text-align:center;min-height:28px;padding:5px 12px;line-height:18px}
 
 /* ボタン */
 .btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 26px;background:var(--wine);color:#fff;font-size:14px;letter-spacing:.06em;border:1px solid var(--wine);transition:background .2s}
@@ -252,12 +252,28 @@ html[lang=en] body,html[lang=en] .lead{line-height:1.75}
 
 /* 地域・言語の切り替えバー（メインサイトと共通の見た目） */
 .region-bar{background:#efe6d8;border-bottom:1px solid var(--line);font-size:12px}
-.region-bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:38px}
-.region-bar p{display:flex;align-items:center;gap:4px;margin:0}
+.region-bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:38px}
+.region-bar p{display:flex;align-items:center;gap:2px;margin:0}
+.region-bar .globe{display:block;color:var(--muted);margin-right:4px;flex:none}
 .region-label{color:var(--muted);margin-right:8px;letter-spacing:.08em}
-.region-bar a{color:var(--muted);padding:9px 10px;position:relative;letter-spacing:.06em}
+.region-bar a{display:block;color:var(--muted);padding:0 10px;line-height:37px;position:relative;letter-spacing:.06em}
 .region-bar a:hover{color:var(--wine)}
 .region-bar a[aria-current]{color:var(--ink);font-weight:700}
-.region-bar a[aria-current]::after{content:"";position:absolute;left:10px;right:10px;bottom:4px;height:2px;background:var(--wine)}
+.region-bar a[aria-current]::after{content:"";position:absolute;left:10px;right:10px;bottom:6px;height:2px;background:var(--wine)}
 .langs a+a::before{content:"";position:absolute;left:-2px;top:50%;width:1px;height:12px;margin-top:-6px;background:var(--line)}
-@media (max-width:520px){.region-label{display:none}.region-bar a{padding:9px 8px}}
+@media (max-width:520px){.region-bar a{padding:0 8px}.region-bar a[aria-current]::after{left:8px;right:8px}}
+
+/* ページ表示：ローディング（初回のみ）、ページ間のフェード、セクションと画像のフェード */
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.32s;animation-timing-function:ease}
+#rm-loader{display:none}
+html.show-loader #rm-loader{position:fixed;inset:0;z-index:9999;background:var(--paper);display:grid;place-items:center;transition:opacity .55s ease,visibility .55s}
+html.show-loader #rm-loader.is-done{opacity:0;visibility:hidden}
+.rm-mark{width:56px;height:56px;border:1px solid var(--wine);color:var(--wine);display:grid;place-items:center;font:500 19px/1.05 var(--mincho);text-align:center;animation:rm-breathe 1.6s ease-in-out infinite}
+.rm-line{width:120px;height:1px;background:var(--line);margin:22px auto 0;overflow:hidden}
+.rm-line::after{content:"";display:block;height:100%;width:40%;background:var(--gold);animation:rm-slide 1.1s ease-in-out infinite}
+@keyframes rm-breathe{50%{opacity:.55}}
+@keyframes rm-slide{from{transform:translateX(-100%)}to{transform:translateX(250%)}}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rm-mark,.rm-line::after{animation:none}.rv{opacity:1;transform:none;transition:none}::view-transition-old(root),::view-transition-new(root){animation:none}}
