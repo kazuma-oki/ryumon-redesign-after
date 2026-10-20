@@ -66,6 +66,7 @@ p,dd,li{text-wrap:pretty}
       <sc-for list="{{ nav }}" as="item">
         <a href="#" onClick="{{ item.go }}" style="padding:16px 0;border-bottom:1px solid #e2d8c9;color:#2b1d1a;font-size:16px;display:flex;justify-content:space-between;white-space:nowrap;flex:none">{{ item.label }}</a>
       </sc-for>
+      <a href="us/" style="padding:16px 0;border-bottom:1px solid #e2d8c9;color:#2b1d1a;font-size:16px;display:flex;white-space:nowrap;flex:none">米国にお住まいの方へ</a>
       <a href="#" onClick="{{ go.contact }}" style="margin-top:20px;background:#651d26;color:#fff;padding:18px 22px;display:flex;justify-content:space-between;font-size:15px;white-space:nowrap;flex:none">ご予約・ご相談</a>
     </div>
   </sc-if>
@@ -296,6 +297,13 @@ p,dd,li{text-wrap:pretty}
     <img src="assets/altar.webp" alt="蓮の飾りと祭具が並ぶ龍門精舎の祭壇" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block">
     <figcaption style="font-size:12px;color:#8a7a70">既存資料に掲載された精舎の写真。撮影店舗・時期は確認中。</figcaption>
   </figure>
+</section>
+
+<section style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,56px) clamp(56px,8vw,96px)">
+  <a href="us/" style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;background:#2a0f14;color:#f3ece0;padding:clamp(24px,4vw,40px) clamp(20px,4vw,48px)" style-hover="background:#3a1016;color:#fff">
+    <span style="display:flex;flex-direction:column;gap:8px"><span style="font-family:'Shippori Mincho',serif;font-size:13px;letter-spacing:.16em;color:#d4b07c">米国にお住まいの方へ</span><span style="font-family:'Shippori Mincho',serif;font-size:clamp(19px,2.4vw,26px);line-height:1.6;word-break:auto-phrase;text-wrap:balance">米国内の日本人スタッフが、日本語でご相談を承ります。</span></span>
+    <span style="border-bottom:1px solid #b8925a;padding:6px 0;font-size:14px;white-space:nowrap">米国窓口のサイトを見る</span>
+  </a>
 </section>
 
 <section style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,56px) clamp(64px,9vw,128px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(48px,6vw,96px)">
@@ -725,8 +733,8 @@ p,dd,li{text-wrap:pretty}
 </section>
 <section style="background:#efe5d6">
   <div style="max-width:1320px;margin:0 auto;padding:28px clamp(20px,5vw,56px);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
-    <div style="display:flex;gap:24px;align-items:baseline;flex-wrap:wrap"><span style="font-family:'Shippori Mincho',serif;font-size:17px">米国にお住まいの方へ。</span><span style="font-size:13px;color:#4a3b35">米国内の日本人スタッフによるサービスは、別サイトでご案内します。</span></div>
-    <a href="#" onClick="{{ go.contact }}" style="font-size:13px;border-bottom:1px solid #651d26;padding:6px 0;display:flex;gap:16px;white-space:nowrap;flex:none">米国からのご相談はお問い合わせへ</a>
+    <div style="display:flex;gap:24px;align-items:baseline;flex-wrap:wrap"><span style="font-family:'Shippori Mincho',serif;font-size:17px">米国にお住まいの方へ。</span><span style="font-size:13px;color:#4a3b35">米国内の日本人スタッフが、米国にお住まいの日本人の方からのご相談を日本語で承ります。</span></div>
+    <a href="us/" style="font-size:13px;border-bottom:1px solid #651d26;padding:6px 0;display:flex;gap:16px;white-space:nowrap;flex:none">米国窓口のサイトを見る</a>
   </div>
 </section>
 </sc-if>
@@ -758,6 +766,7 @@ p,dd,li{text-wrap:pretty}
       </div>
       <div style="display:flex;flex-direction:column">
         <a href="#" onClick="{{ go.contact }}" style="color:#d9cbb6;padding:10px 0;border-bottom:1px solid rgba(184,146,90,.2)" style-hover="color:#fff">ご予約とお問い合わせ</a>
+          <a href="us/" style="color:#d9cbb6;padding:10px 0;border-bottom:1px solid rgba(184,146,90,.2)" style-hover="color:#fff">米国にお住まいの方へ</a>
       </div>
     </div>
     <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:11px;color:#a8957e;border-top:1px solid rgba(184,146,90,.25);padding-top:24px">
