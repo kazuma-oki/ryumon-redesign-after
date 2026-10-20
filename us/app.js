@@ -83,7 +83,7 @@
  const loader = document.getElementById('rm-loader');
  if (loader && document.documentElement.classList.contains('show-loader')) {
   const t0 = performance.now();
-  const close = () => setTimeout(() => { loader.classList.add('is-done'); try { sessionStorage.setItem('rm-seen', '1'); } catch (e) {} setTimeout(() => loader.remove(), 600); }, Math.max(0, 900 - (performance.now() - t0)));
+  const close = () => setTimeout(() => { loader.classList.add('is-done'); try { sessionStorage.setItem('rm-seen', '1'); } catch (e) {} setTimeout(() => loader.remove(), 600); }, Math.max(0, (window.__rmSeen ? 800 : 2600) - (performance.now() - t0)));
   Promise.race([document.fonts ? document.fonts.ready : Promise.resolve(), new Promise(r => setTimeout(r, 3000))]).then(close);
  } else if (loader) loader.remove();
 
