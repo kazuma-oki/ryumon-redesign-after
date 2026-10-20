@@ -267,13 +267,13 @@ html[lang=en] body,html[lang=en] .lead{line-height:1.75}
 @view-transition{navigation:auto}
 ::view-transition-old(root),::view-transition-new(root){animation-duration:.32s;animation-timing-function:ease}
 #rm-loader{display:none}
-html.show-loader #rm-loader{position:fixed;inset:0;z-index:9999;background:#f5efe6;display:grid;place-items:center;transition:opacity .7s ease,visibility .7s}
+html.show-loader #rm-loader{position:fixed;inset:0;z-index:9999;background:#f5efe6;display:grid;place-items:center;transition:opacity 1s ease,visibility 1s}
 html.show-loader #rm-loader.is-done{opacity:0;visibility:hidden}
 #rm-loader .rm-box{display:flex;flex-direction:column;align-items:center}
-#rm-loader .rm-mark{width:64px;height:64px;border:1px solid #651d26;color:#651d26;display:grid;place-items:center;font:500 21px/1.05 'Shippori Mincho',serif;text-align:center;opacity:0;animation:rm-in 1s .1s ease forwards}
-#rm-loader .rm-name{margin-top:18px;font:500 15px 'Shippori Mincho',serif;letter-spacing:.42em;padding-left:.42em;color:#2b1d1a;opacity:0;animation:rm-in 1s .6s ease forwards}
+#rm-loader .rm-mark{width:64px;height:64px;border:1px solid #651d26;color:#651d26;display:grid;place-items:center;font:500 21px/1.05 'Shippori Mincho',serif;text-align:center;opacity:0;animation:rm-in 1.2s .2s ease forwards}
+#rm-loader .rm-name{margin-top:18px;font:500 15px 'Shippori Mincho',serif;letter-spacing:.42em;padding-left:.42em;color:#2b1d1a;opacity:0;animation:rm-in 1.2s 1s ease forwards}
 #rm-loader .rm-line{width:140px;height:1px;background:#e2d8c9;margin-top:22px;overflow:hidden}
-#rm-loader .rm-line::after{content:"";display:block;height:100%;width:100%;background:#b8925a;transform:scaleX(0);transform-origin:left;animation:rm-fill var(--rm-dur,2.4s) .2s cubic-bezier(.4,0,.2,1) forwards}
+#rm-loader .rm-line::after{content:"";display:block;height:100%;width:100%;background:#b8925a;transform:scaleX(0);transform-origin:left;animation:rm-fill 3.6s .4s cubic-bezier(.45,0,.25,1) forwards}
 @keyframes rm-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @keyframes rm-fill{to{transform:scaleX(1)}}
 .rv{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.7,.2,1)}

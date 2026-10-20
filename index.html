@@ -7,13 +7,14 @@
 <style>
 @view-transition{navigation:auto}
 ::view-transition-old(root),::view-transition-new(root){animation-duration:.32s;animation-timing-function:ease}
-#rm-loader{position:fixed;inset:0;z-index:9999;background:#f5efe6;display:grid;place-items:center;transition:opacity .7s ease,visibility .7s}
+html.no-loader #rm-loader{display:none}
+#rm-loader{position:fixed;inset:0;z-index:9999;background:#f5efe6;display:grid;place-items:center;transition:opacity 1s ease,visibility 1s}
 #rm-loader.is-done{opacity:0;visibility:hidden}
 #rm-loader .rm-box{display:flex;flex-direction:column;align-items:center}
-#rm-loader .rm-mark{width:64px;height:64px;border:1px solid #651d26;color:#651d26;display:grid;place-items:center;font:500 21px/1.05 'Shippori Mincho',serif;text-align:center;opacity:0;animation:rm-in 1s .1s ease forwards}
-#rm-loader .rm-name{margin-top:18px;font:500 15px 'Shippori Mincho',serif;letter-spacing:.42em;padding-left:.42em;color:#2b1d1a;opacity:0;animation:rm-in 1s .6s ease forwards}
+#rm-loader .rm-mark{width:64px;height:64px;border:1px solid #651d26;color:#651d26;display:grid;place-items:center;font:500 21px/1.05 'Shippori Mincho',serif;text-align:center;opacity:0;animation:rm-in 1.2s .2s ease forwards}
+#rm-loader .rm-name{margin-top:18px;font:500 15px 'Shippori Mincho',serif;letter-spacing:.42em;padding-left:.42em;color:#2b1d1a;opacity:0;animation:rm-in 1.2s 1s ease forwards}
 #rm-loader .rm-line{width:140px;height:1px;background:#e2d8c9;margin-top:22px;overflow:hidden}
-#rm-loader .rm-line::after{content:"";display:block;height:100%;width:100%;background:#b8925a;transform:scaleX(0);transform-origin:left;animation:rm-fill var(--rm-dur,2.4s) .2s cubic-bezier(.4,0,.2,1) forwards}
+#rm-loader .rm-line::after{content:"";display:block;height:100%;width:100%;background:#b8925a;transform:scaleX(0);transform-origin:left;animation:rm-fill 3.6s .4s cubic-bezier(.45,0,.25,1) forwards}
 @keyframes rm-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @keyframes rm-fill{to{transform:scaleX(1)}}
 @media (prefers-reduced-motion:reduce){#rm-loader *{animation:none!important;opacity:1!important;transform:none!important}::view-transition-old(root),::view-transition-new(root){animation:none}}
@@ -24,12 +25,11 @@
 @media (prefers-reduced-motion:reduce){.rv,.img-fade{opacity:1!important;transform:none!important;transition:none!important}}
 </style>
 <script>
-(function(){var t0=Date.now(),seen=false;try{seen=sessionStorage.getItem('rm-seen')==='1';sessionStorage.setItem('rm-seen','1')}catch(e){}
-var minWait=seen?800:2600;document.documentElement.style.setProperty('--rm-dur',(seen?0.6:2.3)+'s');
-function done(){var l=document.getElementById('rm-loader');if(!l||l.classList.contains('is-done'))return;setTimeout(function(){l.classList.add('is-done');setTimeout(function(){l.remove()},600)},Math.max(0,minWait-(Date.now()-t0)))}
+(function(){var t0=Date.now();var p=location.pathname,i=p.indexOf('/us/'),root=i>=0?p.slice(0,i+1):p.replace(/[^/]*$/,''),nav=performance.getEntriesByType?performance.getEntriesByType('navigation')[0]:null,type=nav?nav.type:'navigate',internal=false;try{var r=new URL(document.referrer);internal=r.origin===location.origin&&r.pathname.indexOf(root)===0}catch(e){}var show=type==='reload'||!internal;if(!show){document.documentElement.classList.add('no-loader')}var minWait=4200;
+function done(){var l=document.getElementById('rm-loader');if(!l||l.classList.contains('is-done'))return;if(!show){l.remove();return}setTimeout(function(){l.classList.add('is-done');setTimeout(function(){l.remove()},1100)},Math.max(0,minWait-(Date.now()-t0)))}
 function ready(){var r=document.getElementById('dc-root');if(!r||!r.querySelector('h1'))return false;var img=r.querySelector('img'),ps=[document.fonts?document.fonts.ready:null];if(img&&!img.complete)ps.push(new Promise(function(res){img.addEventListener('load',res);img.addEventListener('error',res)}));Promise.all(ps).then(done);return true}
 document.addEventListener('DOMContentLoaded',function(){if(ready())return;var mo=new MutationObserver(function(){if(ready())mo.disconnect()});mo.observe(document.body,{childList:true,subtree:true})});
-setTimeout(done,5000)})();
+setTimeout(done,8000)})();
 </script>
 <script>
 (function(){if(!('IntersectionObserver' in window))return;
