@@ -249,3 +249,15 @@ html[lang=en] body,html[lang=en] .lead{line-height:1.75}
  .menu-btn span:nth-child(1){top:12px}.menu-btn span:nth-child(2){top:19px}.menu-btn span:nth-child(3){top:26px}
 }
 @media (max-width:360px){.site-header .logo-mark{display:none}:root{--gutter:16px}}
+
+/* 地域・言語の切り替えバー（メインサイトと共通の見た目） */
+.region-bar{background:#efe6d8;border-bottom:1px solid var(--line);font-size:12px}
+.region-bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:38px}
+.region-bar p{display:flex;align-items:center;gap:4px;margin:0}
+.region-label{color:var(--muted);margin-right:8px;letter-spacing:.08em}
+.region-bar a{color:var(--muted);padding:9px 10px;position:relative;letter-spacing:.06em}
+.region-bar a:hover{color:var(--wine)}
+.region-bar a[aria-current]{color:var(--ink);font-weight:700}
+.region-bar a[aria-current]::after{content:"";position:absolute;left:10px;right:10px;bottom:4px;height:2px;background:var(--wine)}
+.langs a+a::before{content:"";position:absolute;left:-2px;top:50%;width:1px;height:12px;margin-top:-6px;background:var(--line)}
+@media (max-width:520px){.region-label{display:none}.region-bar a{padding:9px 8px}}

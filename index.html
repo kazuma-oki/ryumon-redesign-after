@@ -21,6 +21,7 @@ h1,h2,h3,h4,p,figcaption{word-break:auto-phrase}
 h1,h2,h3,h4{text-wrap:balance}
 p,dd,li{text-wrap:pretty}
 @media (max-width:759px){input,select,textarea{font-size:16px!important}}
+select{max-width:100%;min-width:0}
 @keyframes kb{from{transform:scale(1.12)}to{transform:scale(1)}}
 @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 @keyframes fadein{from{opacity:0}to{opacity:1}}
@@ -30,6 +31,14 @@ p,dd,li{text-wrap:pretty}
 <div style="min-height:100vh;display:flex;flex-direction:column">
 
 <div style="background:#1b0b0e;color:#d9c3a0;font-size:11px;letter-spacing:.06em;text-align:center;padding:6px 12px">デザイン確認用のデモです（予約・送信・購入は行われません）</div>
+<nav aria-label="地域" style="background:#efe6d8;border-bottom:1px solid #e2d8c9;font-size:12px">
+  <div style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,56px);min-height:38px;display:flex;align-items:center;gap:4px">
+    <span style="color:#6b5a52;margin-right:8px;letter-spacing:.08em">地域</span>
+    <a href="./" aria-current="true" style="position:relative;padding:9px 10px;color:#2b1d1a;font-weight:700;letter-spacing:.06em;box-shadow:inset 0 -2px 0 -0px transparent">日本<span style="position:absolute;left:10px;right:10px;bottom:4px;height:2px;background:#651d26"></span></a>
+    <a href="us/" style="padding:9px 10px;color:#6b5a52;letter-spacing:.06em" style-hover="color:#651d26">アメリカ</a>
+    <a href="us/en/" lang="en" style="margin-left:auto;padding:9px 0 9px 10px;color:#6b5a52;letter-spacing:.04em" style-hover="color:#651d26">U.S. site in English</a>
+  </div>
+</nav>
 
 <header style="position:sticky;top:0;z-index:50;background:rgba(245,239,230,.94);backdrop-filter:blur(10px);border-bottom:1px solid #e2d8c9">
   <div style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,56px);height:{{ headH }};display:flex;align-items:center;gap:{{ headGap }}">
@@ -47,8 +56,8 @@ p,dd,li{text-wrap:pretty}
         </sc-for>
       </nav>
     </sc-if>
-    <button onClick="{{ toggleCart }}" style="position:relative;background:none;border:1px solid #d6c9b5;height:44px;padding:0 14px;cursor:pointer;color:#2b1d1a;font-size:13px;display:flex;align-items:center;gap:8px;white-space:nowrap;flex:none" style-hover="border-color:#651d26">
-      カート<span style="min-width:20px;height:20px;border-radius:10px;background:#651d26;color:#fff;font-size:11px;display:grid;place-items:center;padding:0 6px">{{ cartCount }}</span>
+    <button onClick="{{ toggleCart }}" aria-label="カート" style="position:relative;background:none;border:1px solid #d6c9b5;height:44px;padding:0 {{ cartPad }};cursor:pointer;color:#2b1d1a;font-size:13px;display:flex;align-items:center;gap:8px;white-space:nowrap;flex:none" style-hover="border-color:#651d26">
+      <span style="display:{{ cartLabelDisp }}">カート</span><span style="min-width:20px;height:20px;border-radius:10px;background:#651d26;color:#fff;font-size:11px;display:grid;place-items:center;padding:0 6px">{{ cartCount }}</span>
     </button>
     <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
       <a href="#" onClick="{{ go.contact }}" style="background:#651d26;color:#fff;height:44px;padding:0 22px;display:flex;align-items:center;gap:14px;font-size:14px;letter-spacing:.06em;white-space:nowrap;flex:none" style-hover="background:#3a1016;color:#fff">ご予約・ご相談</a>
@@ -155,7 +164,7 @@ p,dd,li{text-wrap:pretty}
       </div>
       <p style="margin:0;max-width:400px;font-size:14px;line-height:2;color:#4a3b35">内容と料金を確かめて、安心して相談を。迷われる場合は、ご希望を伺ってからご案内します。</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:#e2d8c9;border:1px solid #e2d8c9">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:1px;background:#e2d8c9;border:1px solid #e2d8c9">
       <sc-for list="{{ feesTop }}" as="f" hint-placeholder-count="4">
         <div style="background:#fbf8f2;display:flex;flex-direction:{{ feeDir }}">
           <sc-if value="{{ f.img }}"><img src="{{ f.img }}" alt="{{ f.name }}の鑑定" style="width:{{ feeImgW }};flex:none;aspect-ratio:{{ feeImgAR }};object-fit:cover;display:block"></sc-if>
@@ -203,7 +212,7 @@ p,dd,li{text-wrap:pretty}
       </div>
       <p style="margin:0;max-width:400px;font-size:14px;line-height:2;color:#d9cbb6">祈祷の場から、一枚の霊符へ。<br>ご希望を伺い、内容に応じた方法をご案内します。</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(24px,4vw,48px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(24px,4vw,48px)">
       <article style="display:flex;flex-direction:column;gap:24px">
         <img src="assets/prayer.webp" alt="祭壇の前で祭具を持ち、祈祷を行う先生" style="width:100%;aspect-ratio:3/2;object-fit:cover;display:block">
         <div style="display:flex;flex-direction:column;gap:16px;flex:1">
@@ -306,7 +315,7 @@ p,dd,li{text-wrap:pretty}
   </a>
 </section>
 
-<section style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,56px) clamp(64px,9vw,128px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(48px,6vw,96px)">
+<section style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,56px) clamp(64px,9vw,128px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(48px,6vw,96px)">
   <div style="display:flex;flex-direction:column;gap:28px">
     <div style="display:flex;align-items:center;gap:12px;font-family:'Shippori Mincho',serif;font-size:13px;letter-spacing:.16em;color:#651d26"><span style="width:24px;height:1px;background:#b8925a"></span>活動</div>
     <h2 style="margin:0;font-family:'Shippori Mincho',serif;font-weight:500;font-size:clamp(24px,2.6vw,32px);letter-spacing:.06em">龍門精舎の活動。</h2>
@@ -359,7 +368,7 @@ p,dd,li{text-wrap:pretty}
       <p style="margin:0;font-size:15px;line-height:2.1;color:#4a3b35">一人ひとりの思いを伺い、これからを考える時間を大切にしています。</p>
     </div>
   </section>
-  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1px;background:#e2d8c9;border:1px solid #e2d8c9">
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:1px;background:#e2d8c9;border:1px solid #e2d8c9">
     <div style="background:#fbf8f2;padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;gap:18px">
       <h2 style="margin:0;font-family:'Shippori Mincho',serif;font-weight:500;font-size:24px;line-height:1.6">ご自身の力を生かすための<br>お手伝いを。</h2>
       <p style="margin:0;font-size:15px;line-height:2.1;color:#4a3b35">努力を重ねていても、思うように進まないことや、先の見えない不安を感じることがあると思います。鄭東秀先生が既存の挨拶で伝えているのは、ご自身を理解し、持っている力を生かして歩むためのお手伝いを大切にするという考え方です。</p>
@@ -425,7 +434,7 @@ p,dd,li{text-wrap:pretty}
     </div>
     <span style="font-size:12px;color:#8a7a70">既存予約ページの表示に基づきます。延長料金・追加費用は確認中です。</span>
   </section>
-  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px">
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px">
     <div style="border:1px solid #e2d8c9;padding:clamp(28px,4vw,44px);display:flex;flex-direction:column;gap:16px">
       <h2 style="margin:0;font-family:'Shippori Mincho',serif;font-weight:500;font-size:22px">来店が難しい方も、ご相談ください。</h2>
       <p style="margin:0;font-size:14px;line-height:2;color:#4a3b35">既存の案内には、対面のほか電話やオンラインでの鑑定についての記載があります。現在の受付方法、使用するアプリ、対象メニューと適用料金は確認中です。</p>
@@ -501,7 +510,7 @@ p,dd,li{text-wrap:pretty}
       <p style="margin:0;font-size:15px;line-height:2.1;color:#4a3b35">龍門精舎では、願いに向き合い、祈りを捧げる祈祷やグッズについてのご相談を承ります。お悩みやご希望を伺い、内容に応じてご案内します。</p>
     </div>
   </section>
-  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(32px,5vw,64px)">
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(32px,5vw,64px)">
     <div style="display:flex;flex-direction:column;gap:16px">
       <h2 style="margin:0;font-family:'Shippori Mincho',serif;font-weight:500;font-size:24px">ご相談内容をお聞かせください。</h2>
       <p style="margin:0;font-size:14px;line-height:2;color:#4a3b35">個人の方の願いやご相談を伺います。事業や店舗に関する祈祷は、現在の受付内容を確認してからのご案内となります。必要な準備、場所、所要時間は内容によって異なります。</p>
@@ -519,7 +528,7 @@ p,dd,li{text-wrap:pretty}
   <section style="display:flex;flex-direction:column;gap:24px">
     <h2 style="margin:0;font-family:'Shippori Mincho',serif;font-weight:500;font-size:24px">お祓いについて。</h2>
     <p style="margin:0;font-size:14px;line-height:2;color:#4a3b35;max-width:760px">旧サイトにはお祓いの案内がありますが、具体的な説明と現在の対応内容は確認中です。気になっていることと、ご希望をお知らせください。</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px">
       <figure style="margin:0;display:flex;flex-direction:column;gap:10px"><img src="assets/ritual-wide.webp" alt="祭壇の前で祈祷する様子" style="width:100%;aspect-ratio:3/2;object-fit:cover;display:block"><figcaption style="font-size:12px;color:#6b5a52">祭壇の前で行われる祈祷。</figcaption></figure>
       <figure style="margin:0;display:flex;flex-direction:column;gap:10px"><img src="assets/hands.webp" alt="霊符を書く手元" style="width:100%;aspect-ratio:3/2;object-fit:cover;display:block"><figcaption style="font-size:12px;color:#6b5a52">一枚に祈りを込める手元。</figcaption></figure>
     </div>
@@ -539,7 +548,7 @@ p,dd,li{text-wrap:pretty}
     <h2 style="margin:0;font-family:'Shippori Mincho',serif;font-weight:500;font-size:clamp(22px,2.6vw,28px)">ご予約の店舗と日時をお確かめください。</h2>
     <p style="margin:0;font-size:14px;line-height:2;color:#4a3b35">このデモの店舗情報は既存資料に基づく参考情報です。現在の営業店舗、所在地、受付時間、連絡先は確認中のため、地図や経路案内は設置していません。</p>
   </section>
-  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px">
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:24px">
     <div style="background:#fbf8f2;border:1px solid #e2d8c9;padding:clamp(28px,4vw,44px);display:flex;flex-direction:column;gap:20px">
       <div style="display:flex;align-items:center;gap:12px;font-family:'Shippori Mincho',serif;font-size:13px;letter-spacing:.16em;color:#651d26"><span style="width:24px;height:1px;background:#b8925a"></span>新宿</div>
       <h3 style="margin:0;font-family:'Shippori Mincho',serif;font-weight:500;font-size:26px">龍門精舎 新宿本店</h3>
@@ -611,7 +620,7 @@ p,dd,li{text-wrap:pretty}
       </sc-for>
     </div>
   </section>
-  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px">
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px">
     <div style="background:#fbf8f2;border:1px solid #e2d8c9;padding:clamp(28px,4vw,44px);display:flex;flex-direction:column;gap:14px">
       <h2 style="margin:0;font-family:'Shippori Mincho',serif;font-weight:500;font-size:22px">霊符画とお守りグッズ。</h2>
       <p style="margin:0;font-size:14px;line-height:2;color:#4a3b35">既存のオンラインショップには、霊符画やお守りグッズも掲載されています。作品や商品の詳細、販売状況は個別に確認が必要です。</p>
@@ -642,7 +651,7 @@ p,dd,li{text-wrap:pretty}
     </ol>
     <span style="font-size:12px;line-height:1.8;color:#8a7a70">実際の受付窓口、返信担当、予約確定の手順は確認中です。</span>
   </aside>
-  <div style="flex:2 1 480px">
+  <div style="flex:2 1 480px;min-width:0">
     <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
       <form onSubmit="{{ submit }}" style="display:flex;flex-direction:column;gap:24px" novalidate>
         <label style="display:flex;flex-direction:column;gap:8px;font-size:14px">
@@ -1044,6 +1053,7 @@ class Component extends DCLogic {
       prodMin: mobile ? '140px' : '240px', prodGap: mobile ? '28px 12px' : 'clamp(20px,3vw,36px) 24px', prodH3: mobile ? '16px' : '18px', prodDesc: mobile ? '12px' : '13px',
       prodPrice: mobile ? '15px' : '20px', prodTaxDisp: mobile ? 'block' : 'inline', prodTaxML: mobile ? '-1em' : '0', prodBtnW: mobile ? '100%' : 'auto',
       pickPad: mobile ? '16px' : '24px 28px', pickMin: mobile ? '130px' : '150px', pickGap: mobile ? '10px' : '14px', pickHeadPad: mobile ? '18px 16px' : '24px 28px', pickBtnW: mobile ? '100%' : 'auto',
+      cartLabelDisp: w < 380 ? 'none' : 'inline', cartPad: w < 380 ? '10px' : '14px',
       mobileCta: mobile && !this.state.picker && (page !== 'top' || this.state.past) && page !== 'contact' && !menu && !cartOpen,
       wide: !narrow, narrow, menuOpen: narrow && menu, menuLabel: menu ? 'メニューを閉じる' : 'メニューを開く',
       hb: menu ? {t1:'21px',t3:'21px',r1:'rotate(45deg)',r3:'rotate(-45deg)',o:0} : {t1:'14px',t3:'28px',r1:'none',r3:'none',o:1},
