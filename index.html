@@ -7,7 +7,7 @@
 <script src="./support.js"></script>
 </head>
 <body>
-<x-dc>
+<x-dc><template>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
@@ -18,6 +18,9 @@ a{color:#651d26;text-decoration:none}
 a:hover{color:#3a1016}
 button,input,select,textarea{font-family:inherit}
 h1,h2,h3,h4,p,figcaption{word-break:auto-phrase}
+h1,h2,h3,h4{text-wrap:balance}
+p,dd,li{text-wrap:pretty}
+@media (max-width:759px){input,select,textarea{font-size:16px!important}}
 @keyframes kb{from{transform:scale(1.12)}to{transform:scale(1)}}
 @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 @keyframes fadein{from{opacity:0}to{opacity:1}}
@@ -300,8 +303,8 @@ h1,h2,h3,h4,p,figcaption{word-break:auto-phrase}
     <div style="display:flex;align-items:center;gap:12px;font-family:'Shippori Mincho',serif;font-size:13px;letter-spacing:.16em;color:#651d26"><span style="width:24px;height:1px;background:#b8925a"></span>活動</div>
     <h2 style="margin:0;font-family:'Shippori Mincho',serif;font-weight:500;font-size:clamp(24px,2.6vw,32px);letter-spacing:.06em">龍門精舎の活動。</h2>
     <div style="display:flex;flex-direction:column;border-top:1px solid #2b1d1a">
-      <a href="#" style="display:flex;gap:20px;align-items:center;padding:22px 0;border-bottom:1px solid #e2d8c9;color:#2b1d1a;white-space:nowrap;flex:none" style-hover="color:#651d26"><span style="font-size:11px;letter-spacing:.14em;color:#8a7a70;width:90px">祈りの記録</span><span style="flex:1;font-size:15px">写真で見る、祈祷と霊符。</span></a>
-      <a href="#" style="display:flex;gap:20px;align-items:center;padding:22px 0;border-bottom:1px solid #e2d8c9;color:#2b1d1a;white-space:nowrap;flex:none" style-hover="color:#651d26"><span style="font-size:11px;letter-spacing:.14em;color:#8a7a70;width:90px">霊符画</span><span style="flex:1;font-size:15px">霊符画展示会について。</span></a>
+      <a href="#" onClick="{{ go.prayer }}" style="display:flex;gap:20px;align-items:center;padding:22px 0;border-bottom:1px solid #e2d8c9;color:#2b1d1a;white-space:nowrap;flex:none" style-hover="color:#651d26"><span style="font-size:11px;letter-spacing:.14em;color:#8a7a70;width:90px">祈りの記録</span><span style="flex:1;font-size:15px">写真で見る、祈祷と霊符。</span></a>
+      <a href="#" onClick="{{ go.shop }}" style="display:flex;gap:20px;align-items:center;padding:22px 0;border-bottom:1px solid #e2d8c9;color:#2b1d1a;white-space:nowrap;flex:none" style-hover="color:#651d26"><span style="font-size:11px;letter-spacing:.14em;color:#8a7a70;width:90px">霊符画</span><span style="flex:1;font-size:15px">霊符画展示会について。</span></a>
     </div>
   </div>
   <div style="display:flex;flex-direction:column;gap:28px">
@@ -331,7 +334,7 @@ h1,h2,h3,h4,p,figcaption{word-break:auto-phrase}
     <nav style="display:flex;gap:10px;font-size:12px;color:#c9b8a0"><a href="#" onClick="{{ go.top }}" style="color:#c9b8a0">トップ</a><span>／</span><span style="color:#f3ece0">{{ sub.label }}</span></nav>
     <div style="display:flex;flex-direction:column;gap:22px;animation:rise 1s both">
       <div style="display:flex;align-items:center;gap:14px;font-size:11px;letter-spacing:.28em;color:#d4b07c"><span style="width:36px;height:1px;background:#b8925a"></span>{{ sub.eyebrow }}</div>
-      <h1 style="margin:0;font-family:'Shippori Mincho',serif;font-weight:500;font-size:clamp(32px,4.4vw,56px);line-height:1.5;letter-spacing:.08em">{{ sub.t1 }}<br>{{ sub.t2 }}</h1>
+      <h1 style="margin:0;font-family:'Shippori Mincho',serif;font-weight:500;font-size:{{ subH1 }};line-height:1.5;letter-spacing:.08em">{{ sub.t1 }}<br>{{ sub.t2 }}</h1>
     </div>
   </div>
 </section>
@@ -461,7 +464,7 @@ h1,h2,h3,h4,p,figcaption{word-break:auto-phrase}
   <section style="display:flex;flex-direction:column;gap:28px">
     <h2 style="margin:0;font-family:'Shippori Mincho',serif;font-weight:500;font-size:clamp(24px,2.8vw,32px)">既存サイトで紹介されている先生。</h2>
     <p style="margin:0;font-size:14px;color:#4a3b35;line-height:1.9">以下は既存資料の掲載情報です。現在の在籍や担当内容を確定した一覧ではありません。</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax({{ teacherMin }},1fr));gap:{{ teacherGap }}">
       <sc-for list="{{ teachers }}" as="t" hint-placeholder-count="4">
         <div style="display:flex;flex-direction:column;gap:14px">
           <sc-if value="{{ t.img }}"><img src="{{ t.img }}" alt="{{ t.name }}の既存紹介写真" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block"></sc-if>
@@ -533,7 +536,7 @@ h1,h2,h3,h4,p,figcaption{word-break:auto-phrase}
       <div style="display:flex;align-items:center;gap:12px;font-family:'Shippori Mincho',serif;font-size:13px;letter-spacing:.16em;color:#651d26"><span style="width:24px;height:1px;background:#b8925a"></span>新宿</div>
       <h3 style="margin:0;font-family:'Shippori Mincho',serif;font-weight:500;font-size:26px">龍門精舎 新宿本店</h3>
       <dl style="margin:0;display:grid;grid-template-columns:120px 1fr;font-size:14px">
-        <dt style="padding:14px 0;border-top:1px solid #e2d8c9;color:#6b5a52;font-size:12px">参考住所</dt><dd style="margin:0;padding:14px 0;border-top:1px solid #e2d8c9">東京都新宿区歌舞伎町2-42-16 2F</dd>
+        <dt style="padding:14px 0;border-top:1px solid #e2d8c9;color:#6b5a52;font-size:12px">参考住所</dt><dd style="margin:0;padding:14px 0;border-top:1px solid #e2d8c9">東京都新宿区<wbr>歌舞伎町<span style="white-space:nowrap">2-42-16 2F</span></dd>
         <dt style="padding:14px 0;border-top:1px solid #e2d8c9;color:#6b5a52;font-size:12px">建物名</dt><dd style="margin:0;padding:14px 0;border-top:1px solid #e2d8c9">大瀧ビルの表記・階数を確認中</dd>
         <dt style="padding:14px 0;border-top:1px solid #e2d8c9;border-bottom:1px solid #e2d8c9;color:#6b5a52;font-size:12px">アクセス・受付時間</dt><dd style="margin:0;padding:14px 0;border-top:1px solid #e2d8c9;border-bottom:1px solid #e2d8c9">最寄り駅の出口、徒歩分数、受付時間は確認中</dd>
       </dl>
@@ -576,7 +579,7 @@ h1,h2,h3,h4,p,figcaption{word-break:auto-phrase}
       </div>
       <span style="font-size:12px;color:#8a7a70">{{ productCountLabel }}</span>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:clamp(20px,3vw,36px) 24px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax({{ prodMin }},1fr));gap:{{ prodGap }}">
       <sc-for list="{{ products }}" as="p" hint-placeholder-count="8">
         <article style="display:flex;flex-direction:column;gap:12px">
           <div style="position:relative;aspect-ratio:1/1;background:{{ p.tileBg }};display:grid;place-items:center;overflow:hidden">
@@ -590,11 +593,11 @@ h1,h2,h3,h4,p,figcaption{word-break:auto-phrase}
             <sc-if value="{{ p.consultReq }}"><span style="position:absolute;left:12px;top:12px;background:#651d26;color:#fff;font-size:11px;padding:4px 8px;letter-spacing:.06em">個別相談あり</span></sc-if>
           </div>
           <span style="font-size:11px;letter-spacing:.14em;color:#8a7a70">{{ p.catLabel }}</span>
-          <h3 style="margin:0;font-family:'Shippori Mincho',serif;font-weight:500;font-size:18px;line-height:1.5">{{ p.name }}</h3>
-          <p style="margin:0;font-size:13px;line-height:1.8;color:#4a3b35">{{ p.desc }}</p>
+          <h3 style="margin:0;font-family:'Shippori Mincho',serif;font-weight:500;font-size:{{ prodH3 }};line-height:1.5">{{ p.name }}</h3>
+          <p style="margin:0;font-size:{{ prodDesc }};line-height:1.8;color:#4a3b35">{{ p.desc }}</p>
           <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:8px;flex-wrap:wrap">
-            <span style="font-family:'Shippori Mincho',serif;font-size:20px;color:#651d26">{{ p.priceLabel }}<span style="font-size:11px;color:#8a7a70;font-family:'Zen Kaku Gothic New',sans-serif">　税込・デモ</span></span>
-            <button onClick="{{ p.add }}" style="height:40px;padding:0 14px;border:1px solid #651d26;background:{{ p.btnBg }};color:{{ p.btnFg }};font-size:12px;cursor:pointer;white-space:nowrap">{{ p.btnLabel }}</button>
+            <span style="font-family:'Shippori Mincho',serif;font-size:{{ prodPrice }};color:#651d26">{{ p.priceLabel }}<span style="font-size:11px;color:#8a7a70;font-family:'Zen Kaku Gothic New',sans-serif;display:{{ prodTaxDisp }};margin-left:{{ prodTaxML }}">　税込・デモ</span></span>
+            <button onClick="{{ p.add }}" style="width:{{ prodBtnW }};height:40px;padding:0 10px;border:1px solid #651d26;background:{{ p.btnBg }};color:{{ p.btnFg }};font-size:12px;cursor:pointer;white-space:nowrap">{{ p.btnLabel }}</button>
           </div>
         </article>
       </sc-for>
@@ -635,7 +638,7 @@ h1,h2,h3,h4,p,figcaption{word-break:auto-phrase}
     <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
       <form onSubmit="{{ submit }}" style="display:flex;flex-direction:column;gap:24px" novalidate>
         <label style="display:flex;flex-direction:column;gap:8px;font-size:14px">
-          <span style="display:flex;gap:8px;align-items:center">お問い合わせの種類<span style="font-size:10px;background:#efe2dc;color:#651d26;padding:2px 6px">必須</span></span>
+          <span style="display:flex;gap:8px;align-items:center">お問い合わせの種類<span style="font-size:11px;background:#efe2dc;color:#651d26;padding:2px 6px">必須</span></span>
           <select value="{{ form.type }}" onChange="{{ on.type }}" style="height:54px;padding:0 16px;border:1px solid #d6c9b5;background:#fbf8f2;font-size:15px;color:#2b1d1a">
             <option value="">選択してください</option>
             <option>鑑定のご予約</option><option>祈祷・グッズについて</option><option>お札・お守りについて</option><option>オンラインショップについて</option><option>その他のご質問</option>
@@ -644,12 +647,12 @@ h1,h2,h3,h4,p,figcaption{word-break:auto-phrase}
         </label>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px">
           <label style="display:flex;flex-direction:column;gap:8px;font-size:14px">
-            <span style="display:flex;gap:8px;align-items:center">お名前<span style="font-size:10px;background:#efe2dc;color:#651d26;padding:2px 6px">必須</span></span>
+            <span style="display:flex;gap:8px;align-items:center">お名前<span style="font-size:11px;background:#efe2dc;color:#651d26;padding:2px 6px">必須</span></span>
             <input value="{{ form.name }}" onChange="{{ on.name }}" placeholder="例：デモ 太郎" style="height:54px;padding:0 16px;border:1px solid #d6c9b5;background:#fbf8f2;font-size:15px">
             <sc-if value="{{ err.name }}"><span style="color:#b3262f;font-size:12px">{{ err.name }}</span></sc-if>
           </label>
           <label style="display:flex;flex-direction:column;gap:8px;font-size:14px">
-            <span style="display:flex;gap:8px;align-items:center">メールアドレス<span style="font-size:10px;background:#efe2dc;color:#651d26;padding:2px 6px">必須</span></span>
+            <span style="display:flex;gap:8px;align-items:center">メールアドレス<span style="font-size:11px;background:#efe2dc;color:#651d26;padding:2px 6px">必須</span></span>
             <input type="email" value="{{ form.email }}" onChange="{{ on.email }}" placeholder="例：demo@example.com" style="height:54px;padding:0 16px;border:1px solid #d6c9b5;background:#fbf8f2;font-size:15px">
             <sc-if value="{{ err.email }}"><span style="color:#b3262f;font-size:12px">{{ err.email }}</span></sc-if>
           </label>
@@ -674,13 +677,13 @@ h1,h2,h3,h4,p,figcaption{word-break:auto-phrase}
           <input value="{{ form.date }}" onChange="{{ on.date }}" placeholder="例：平日の午後（日本時間）" style="height:54px;padding:0 16px;border:1px solid #d6c9b5;background:#fbf8f2;font-size:15px">
         </label>
         <label style="display:flex;flex-direction:column;gap:8px;font-size:14px">
-          <span style="display:flex;gap:8px;align-items:center">ご相談内容<span style="font-size:10px;background:#efe2dc;color:#651d26;padding:2px 6px">必須</span></span>
+          <span style="display:flex;gap:8px;align-items:center">ご相談内容<span style="font-size:11px;background:#efe2dc;color:#651d26;padding:2px 6px">必須</span></span>
           <textarea value="{{ form.message }}" onChange="{{ on.message }}" placeholder="デモ用の内容をご入力ください。" rows="6" style="padding:14px 16px;border:1px solid #d6c9b5;background:#fbf8f2;font-size:15px;resize:vertical"></textarea>
           <sc-if value="{{ err.message }}"><span style="color:#b3262f;font-size:12px">{{ err.message }}</span></sc-if>
         </label>
         <label style="display:flex;gap:12px;align-items:flex-start;font-size:13px;line-height:1.8;cursor:pointer">
           <input type="checkbox" checked="{{ form.agree }}" onChange="{{ on.agree }}" style="width:20px;height:20px;margin-top:2px;accent-color:#651d26">
-          <span>個人情報の取扱いを確認し、送信・保存のないデモであることに同意します。<span style="font-size:10px;background:#efe2dc;color:#651d26;padding:2px 6px;margin-left:6px">必須</span></span>
+          <span>個人情報の取扱いを確認し、送信・保存のないデモであることに同意します。<span style="font-size:11px;background:#efe2dc;color:#651d26;padding:2px 6px;margin-left:6px">必須</span></span>
         </label>
         <sc-if value="{{ err.agree }}"><span style="color:#b3262f;font-size:12px;margin-top:-16px">{{ err.agree }}</span></sc-if>
         <button type="submit" style="height:64px;background:#651d26;color:#fff;border:0;font-size:15px;letter-spacing:.06em;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:0 28px;white-space:nowrap;flex:none" style-hover="background:#3a1016">入力内容を確認する（送信なし）</button>
@@ -723,7 +726,7 @@ h1,h2,h3,h4,p,figcaption{word-break:auto-phrase}
 <section style="background:#efe5d6">
   <div style="max-width:1320px;margin:0 auto;padding:28px clamp(20px,5vw,56px);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
     <div style="display:flex;gap:24px;align-items:baseline;flex-wrap:wrap"><span style="font-family:'Shippori Mincho',serif;font-size:17px">米国にお住まいの方へ。</span><span style="font-size:13px;color:#4a3b35">米国内の日本人スタッフによるサービスは、別サイトでご案内します。</span></div>
-    <a href="#" style="font-size:13px;border-bottom:1px solid #651d26;padding:6px 0;display:flex;gap:16px;white-space:nowrap;flex:none">米国向けサービスについて<span>↗</span></a>
+    <a href="#" onClick="{{ go.contact }}" style="font-size:13px;border-bottom:1px solid #651d26;padding:6px 0;display:flex;gap:16px;white-space:nowrap;flex:none">米国からのご相談はお問い合わせへ</a>
   </div>
 </section>
 </sc-if>
@@ -750,19 +753,16 @@ h1,h2,h3,h4,p,figcaption{word-break:auto-phrase}
       <div style="display:flex;flex-direction:column">
         <a href="#" onClick="{{ go.shop }}" style="color:#d9cbb6;padding:10px 0;border-bottom:1px solid rgba(184,146,90,.2)" style-hover="color:#fff">オンラインショップ</a>
         <a href="#" onClick="{{ go.shop }}" style="color:#d9cbb6;padding:10px 0;border-bottom:1px solid rgba(184,146,90,.2)" style-hover="color:#fff">お札とお守り</a>
-        <a href="#" style="color:#d9cbb6;padding:10px 0;border-bottom:1px solid rgba(184,146,90,.2)" style-hover="color:#fff">ご利用の流れ・よくあるご質問</a>
-        <a href="#" style="color:#d9cbb6;padding:10px 0;border-bottom:1px solid rgba(184,146,90,.2)" style-hover="color:#fff">メディア紹介と活動</a>
-        <a href="#" style="color:#d9cbb6;padding:10px 0;border-bottom:1px solid rgba(184,146,90,.2)" style-hover="color:#fff">お知らせ</a>
+        <a href="#" onClick="{{ go.top }}" style="color:#d9cbb6;padding:10px 0;border-bottom:1px solid rgba(184,146,90,.2)" style-hover="color:#fff">ご利用の流れ・よくあるご質問</a>
+        <a href="#" onClick="{{ go.about }}" style="color:#d9cbb6;padding:10px 0;border-bottom:1px solid rgba(184,146,90,.2)" style-hover="color:#fff">メディア紹介と活動</a>
       </div>
       <div style="display:flex;flex-direction:column">
         <a href="#" onClick="{{ go.contact }}" style="color:#d9cbb6;padding:10px 0;border-bottom:1px solid rgba(184,146,90,.2)" style-hover="color:#fff">ご予約とお問い合わせ</a>
-        <a href="#" style="color:#d9cbb6;padding:10px 0;border-bottom:1px solid rgba(184,146,90,.2)" style-hover="color:#fff">公式SNSについて</a>
-        <a href="#" style="color:#d9cbb6;padding:10px 0;border-bottom:1px solid rgba(184,146,90,.2)" style-hover="color:#fff">米国内スタッフのサービス</a>
       </div>
     </div>
     <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:11px;color:#a8957e;border-top:1px solid rgba(184,146,90,.25);padding-top:24px">
-      <span>© 龍門精舎 · サイトデザイン デモ</span>
-      <span style="display:flex;gap:20px"><a href="#" style="color:#a8957e">個人情報の取扱い</a><a href="#" style="color:#a8957e">販売とご利用条件</a></span>
+      <span>© 龍門精舎　サイトデザイン デモ</span>
+      <span style="display:flex;gap:20px"></span>
     </div>
   </div>
 </footer>
@@ -771,15 +771,15 @@ h1,h2,h3,h4,p,figcaption{word-break:auto-phrase}
 <sc-if value="{{ pickerOpen }}">
   <div onClick="{{ closePicker }}" style="position:fixed;inset:0;background:rgba(27,11,14,.55);z-index:95;animation:fadein .2s both"></div>
   <div role="dialog" aria-label="御札の種類を選ぶ" style="position:fixed;left:0;right:0;top:0;bottom:0;margin:auto;height:fit-content;width:min(880px,calc(100vw - 32px));max-height:calc(100vh - 48px);background:#f5efe6;z-index:96;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,.35);animation:rise .3s both">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:24px 28px;border-bottom:1px solid #e2d8c9">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:{{ pickHeadPad }};border-bottom:1px solid #e2d8c9">
       <div style="display:flex;flex-direction:column;gap:6px">
         <span style="font-size:11px;letter-spacing:.2em;color:#651d26">{{ pickerEyebrow }}</span>
         <span style="font-family:'Shippori Mincho',serif;font-size:24px">{{ pickerTitle }}</span>
-        <span style="font-size:13px;color:#4a3b35">{{ pickerDesc }}　<span style="color:#651d26;font-family:'Shippori Mincho',serif">{{ pickerRange }}</span></span>
+        <span style="font-size:13px;color:#4a3b35">{{ pickerDesc }}<span style="display:block;margin-top:4px;color:#651d26;font-family:'Shippori Mincho',serif;font-size:15px">{{ pickerRange }}</span></span>
       </div>
       <button onClick="{{ closePicker }}" style="background:none;border:0;font-size:13px;cursor:pointer;color:#651d26;height:44px;white-space:nowrap">閉じる ×</button>
     </div>
-    <div style="flex:1;overflow:auto;padding:24px 28px;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px">
+    <div style="flex:1;overflow:auto;padding:{{ pickPad }};display:grid;grid-template-columns:repeat(auto-fill,minmax({{ pickMin }},1fr));gap:{{ pickGap }};align-content:start">
       <sc-for list="{{ pickerItems }}" as="v">
         <div style="display:flex;flex-direction:column;border:1px solid {{ v.border }};background:{{ v.bg }}">
           <button onClick="{{ v.choose }}" style="display:flex;flex-direction:column;gap:10px;padding:12px;border:0;background:none;cursor:pointer;text-align:left;color:#2b1d1a;font-family:inherit;position:relative">
@@ -792,8 +792,8 @@ h1,h2,h3,h4,p,figcaption{word-break:auto-phrase}
             <span style="font-family:'Shippori Mincho',serif;font-size:15px;color:#651d26">{{ v.priceLabel }}</span>
           </button>
           <sc-if value="{{ v.sel }}">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 12px 12px">
-              <span style="font-size:12px;color:#6b5a52">枚数</span>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;padding:0 10px 12px;flex-wrap:wrap">
+              <span style="font-size:12px;color:#6b5a52;white-space:nowrap">枚数</span>
               <div style="display:flex;align-items:center;border:1px solid #d6c9b5;background:#fff">
                 <button onClick="{{ v.dec }}" aria-label="減らす" style="width:34px;height:34px;background:none;border:0;cursor:pointer;font-size:16px">−</button>
                 <span style="min-width:28px;text-align:center;font-size:14px">{{ v.qty }}</span>
@@ -806,8 +806,8 @@ h1,h2,h3,h4,p,figcaption{word-break:auto-phrase}
     </div>
     <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:18px 28px;border-top:1px solid #e2d8c9">
       <span style="font-size:13px;color:#4a3b35;flex:1 1 240px">{{ pickerSelLabel }}</span>
-      <sc-if value="{{ pickerReady }}"><button onClick="{{ confirmPick }}" style="height:52px;padding:0 28px;background:#651d26;color:#fff;border:0;font-size:14px;cursor:pointer;white-space:nowrap" style-hover="background:#3a1016">カートに入れる</button></sc-if>
-      <sc-if value="{{ pickerNotReady }}"><button disabled style="height:52px;padding:0 28px;background:#b9a9a6;color:#fff;border:0;font-size:14px;cursor:not-allowed;white-space:nowrap">カートに入れる</button></sc-if>
+      <sc-if value="{{ pickerReady }}"><button onClick="{{ confirmPick }}" style="width:{{ pickBtnW }};height:52px;padding:0 28px;background:#651d26;color:#fff;border:0;font-size:14px;cursor:pointer;white-space:nowrap" style-hover="background:#3a1016">カートに入れる</button></sc-if>
+      <sc-if value="{{ pickerNotReady }}"><button disabled style="width:{{ pickBtnW }};height:52px;padding:0 28px;background:#b9a9a6;color:#fff;border:0;font-size:14px;cursor:not-allowed;white-space:nowrap">カートに入れる</button></sc-if>
     </div>
     <span style="padding:0 28px 18px;font-size:11px;color:#8a7a70">個別にあったお守りは、購入後のご相談のうえでお送りします。写真はサンプルです。価格はデモ表示です。</span>
   </div>
@@ -865,7 +865,7 @@ h1,h2,h3,h4,p,figcaption{word-break:auto-phrase}
 </div>
 </sc-if>
 
-</x-dc>
+</template></x-dc>
 <script type="text/x-dc" data-dc-script>
 const IMG = 'assets/';
 const PAGES = ['top','about','services','teachers','prayer','access','shop','contact'];
@@ -925,7 +925,7 @@ const PRODUCTS = [
     {id:'a1',name:'萬事大吉になる、宝くじ当たる、幸せになるお守り',price:30000,img:'assets/fu/a1.jpg'},{id:'a2',name:'ビジネスが上手くいくお守り',price:30000,img:'assets/fu/a2.jpg'},{id:'a3',name:'宝くじに当たるお守り',price:30000,img:'assets/fu/a3.jpg'},
     {id:'a4',name:'お金が入ってくる、出費がなくなるお守り',price:10000,img:'assets/fu/a4.jpg'},{id:'a5',name:'金の運勢がよくなるお守り',price:20000,img:'assets/fu/a5.jpg'},{id:'b1',name:'宝くじに当たる、お金が入ってくる、100個の問題が改善できるお守り',price:50000,img:'assets/fu/b1.jpg'},
     {id:'b2',name:'宝くじに当たるお守り（大）',price:30000,img:'assets/fu/b2.jpg'},{id:'b3',name:'お金が入ってくるお守り',price:10000,img:'assets/fu/b3.jpg'},{id:'b4',name:'仕事が上手く、営業ができ、金が入ってくるお守り',price:10000,img:'assets/fu/b4.jpg'},
-    {id:'b5',name:'宝口に当たるお守り',price:10000,img:'assets/fu/b5.jpg'},{id:'c1',name:'失くした金を取り戻すお守り',price:10000,img:'assets/fu/c1.jpg'},{id:'c2',name:'宝口に当たるようになるお守り',price:10000,img:'assets/fu/c2.jpg'},
+    {id:'b5',name:'宝くじに当たるお守り',price:10000,img:'assets/fu/b5.jpg'},{id:'c1',name:'失くした金を取り戻すお守り',price:10000,img:'assets/fu/c1.jpg'},{id:'c2',name:'宝くじに当たるようになるお守り',price:10000,img:'assets/fu/c2.jpg'},
     {id:'c3',name:'起業、営業がよくなるお守り',price:10000,img:'assets/fu/c3.jpg'},{id:'c4',name:'お金持ちになるお守り',price:10000,img:'assets/fu/c4.jpg'}]},
   {id:'love',cat:'fu',name:'霊符「恋愛運」',desc:'恋愛や結婚、ご縁に関する願い。',img:'assets/fu/d2.jpg',consult:true,variants:[
     {id:'d1',name:'結婚ができるお守り',price:10000,img:'assets/fu/d1.jpg'},{id:'d2',name:'恋人ができる、復縁ができるお守り',price:10000,img:'assets/fu/d2.jpg'}]},
@@ -1030,7 +1030,12 @@ class Component extends DCLogic {
       feeDir: mobile ? 'row' : 'column', feeImgW: mobile ? '36%' : '100%', feeImgAR: mobile ? '1/1' : '4/3',
       feePad: mobile ? '16px' : '28px', feeGap: mobile ? '8px' : '18px', feeH3: mobile ? '21px' : '26px',
       concernMin: mobile ? '140px' : '240px', concernGap: mobile ? '10px' : '16px', concernPad: mobile ? '18px 16px' : '24px',
-      mobileCta: mobile && (page !== 'top' || this.state.past) && page !== 'contact' && !menu && !cartOpen,
+      subH1: mobile ? 'clamp(26px,7.2vw,34px)' : 'clamp(32px,4.4vw,56px)',
+      teacherMin: mobile ? '140px' : '220px', teacherGap: mobile ? '28px 14px' : '24px',
+      prodMin: mobile ? '140px' : '240px', prodGap: mobile ? '28px 12px' : 'clamp(20px,3vw,36px) 24px', prodH3: mobile ? '16px' : '18px', prodDesc: mobile ? '12px' : '13px',
+      prodPrice: mobile ? '15px' : '20px', prodTaxDisp: mobile ? 'block' : 'inline', prodTaxML: mobile ? '-1em' : '0', prodBtnW: mobile ? '100%' : 'auto',
+      pickPad: mobile ? '16px' : '24px 28px', pickMin: mobile ? '130px' : '150px', pickGap: mobile ? '10px' : '14px', pickHeadPad: mobile ? '18px 16px' : '24px 28px', pickBtnW: mobile ? '100%' : 'auto',
+      mobileCta: mobile && !this.state.picker && (page !== 'top' || this.state.past) && page !== 'contact' && !menu && !cartOpen,
       wide: !narrow, narrow, menuOpen: narrow && menu, menuLabel: menu ? 'メニューを閉じる' : 'メニューを開く',
       hb: menu ? {t1:'21px',t3:'21px',r1:'rotate(45deg)',r3:'rotate(-45deg)',o:0} : {t1:'14px',t3:'28px',r1:'none',r3:'none',o:1},
       toggleMenu: () => this.setState({ menu: !menu }),
